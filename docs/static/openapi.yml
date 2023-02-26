@@ -29645,6 +29645,11 @@ paths:
       tags:
         - Query
 definitions:
+  alice.checkers.checkers.MsgCreateGameResponse:
+    type: object
+    properties:
+      gameIndex:
+        type: string
   alice.checkers.checkers.MsgCreatePostResponse:
     type: object
   alice.checkers.checkers.Params:
