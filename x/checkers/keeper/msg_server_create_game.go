@@ -4,8 +4,8 @@ import (
 	"context"
 	"strconv"
 
-	"github.com/alice/checkers/x/checkers/types"
 	"github.com/alice/checkers/x/checkers/rules"
+	"github.com/alice/checkers/x/checkers/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
