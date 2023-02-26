@@ -7,15 +7,6 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func TestDefaultGenesisState_ExpectedInitialNextId(t *testing.T) {
-    require.EqualValues(t,
-        &types.GenesisState{
-            StoredGameList: []types.StoredGame{},
-            SystemInfo:     types.SystemInfo{uint64(1)},
-        },
-        types.DefaultGenesis())
-}
-
 func TestGenesisState_Validate(t *testing.T) {
 	for _, tc := range []struct {
 		desc     string
@@ -31,8 +22,8 @@ func TestGenesisState_Validate(t *testing.T) {
 			desc: "valid genesis state",
 			genState: &types.GenesisState{
 
-				SystemInfo: &types.SystemInfo{
-					NextId: 32,
+				SystemInfo: types.SystemInfo{
+					NextId: 39,
 				},
 				StoredGameList: []types.StoredGame{
 					{
@@ -71,4 +62,13 @@ func TestGenesisState_Validate(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestDefaultGenesisState_ExpectedInitialNextId(t *testing.T) {
+	require.EqualValues(t,
+		&types.GenesisState{
+			StoredGameList: []types.StoredGame{},
+			SystemInfo:     types.SystemInfo{uint64(1)},
+		},
+		types.DefaultGenesis())
 }

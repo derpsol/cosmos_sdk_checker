@@ -3,7 +3,6 @@
 package types_test
 
 import (
-	"strings"
 	"testing"
 
 	"github.com/alice/checkers/x/checkers/rules"
