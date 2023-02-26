@@ -68,6 +68,9 @@ export interface CheckersStoredGame {
   turn?: string;
   black?: string;
   red?: string;
+
+  /** @format uint64 */
+  moveCount?: string;
 }
 
 export interface CheckersSystemInfo {
