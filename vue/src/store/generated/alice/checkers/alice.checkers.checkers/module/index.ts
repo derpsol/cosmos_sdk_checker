@@ -6,15 +6,15 @@ import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "
 import { Api } from "./rest";
 import { MsgPlayMove } from "./types/checkers/tx";
 import { MsgCreatePost } from "./types/checkers/tx";
-import { MsgCreateGame } from "./types/checkers/tx";
 import { MsgRejectGame } from "./types/checkers/tx";
+import { MsgCreateGame } from "./types/checkers/tx";
 
 
 const types = [
   ["/alice.checkers.checkers.MsgPlayMove", MsgPlayMove],
   ["/alice.checkers.checkers.MsgCreatePost", MsgCreatePost],
-  ["/alice.checkers.checkers.MsgCreateGame", MsgCreateGame],
   ["/alice.checkers.checkers.MsgRejectGame", MsgRejectGame],
+  ["/alice.checkers.checkers.MsgCreateGame", MsgCreateGame],
   
 ];
 export const MissingWalletError = new Error("wallet is required");
@@ -49,8 +49,8 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
     msgPlayMove: (data: MsgPlayMove): EncodeObject => ({ typeUrl: "/alice.checkers.checkers.MsgPlayMove", value: MsgPlayMove.fromPartial( data ) }),
     msgCreatePost: (data: MsgCreatePost): EncodeObject => ({ typeUrl: "/alice.checkers.checkers.MsgCreatePost", value: MsgCreatePost.fromPartial( data ) }),
-    msgCreateGame: (data: MsgCreateGame): EncodeObject => ({ typeUrl: "/alice.checkers.checkers.MsgCreateGame", value: MsgCreateGame.fromPartial( data ) }),
     msgRejectGame: (data: MsgRejectGame): EncodeObject => ({ typeUrl: "/alice.checkers.checkers.MsgRejectGame", value: MsgRejectGame.fromPartial( data ) }),
+    msgCreateGame: (data: MsgCreateGame): EncodeObject => ({ typeUrl: "/alice.checkers.checkers.MsgCreateGame", value: MsgCreateGame.fromPartial( data ) }),
     
   };
 };

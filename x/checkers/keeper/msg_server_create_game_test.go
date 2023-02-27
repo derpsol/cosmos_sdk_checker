@@ -33,35 +33,41 @@ func TestCreateGame(t *testing.T) {
 
 func TestCreate1GameHasSaved(t *testing.T) {
 	msgSrvr, keeper, context := setupMsgServerCreateGame(t)
+	ctx := sdk.UnwrapSDKContext(context)
 	msgSrvr.CreateGame(context, &types.MsgCreateGame{
 		Creator: alice,
 		Black:   bob,
 		Red:     carol,
 	})
-	systemInfo, found := keeper.GetSystemInfo(sdk.UnwrapSDKContext(context))
+	systemInfo, found := keeper.GetSystemInfo(ctx)
 	require.True(t, found)
 	require.EqualValues(t, types.SystemInfo{
-		NextId: 2,
+		NextId:        2,
+		FifoHeadIndex: "1",
+		FifoTailIndex: "1",
 	}, systemInfo)
-	game1, found1 := keeper.GetStoredGame(sdk.UnwrapSDKContext(context), "1")
+	game1, found1 := keeper.GetStoredGame(ctx, "1")
 	require.True(t, found1)
 	require.EqualValues(t, types.StoredGame{
-		Index: "1",
-		Board: "*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*",
-		Turn:  "b",
-		Black: bob,
-		Red:   carol,
+		Index:       "1",
+		Board:       "*b*b*b*b|b*b*b*b*|*b*b*b*b|********|********|r*r*r*r*|*r*r*r*r|r*r*r*r*",
+		Turn:        "b",
+		Black:       bob,
+		Red:         carol,
+		MoveCount:   0,
+		BeforeIndex: "-1",
+		AfterIndex:  "-1",
 	}, game1)
 }
 
 func TestCreate1GameEmitted(t *testing.T) {
 	msgSrvr, _, context := setupMsgServerCreateGame(t)
+	ctx := sdk.UnwrapSDKContext(context)
 	msgSrvr.CreateGame(context, &types.MsgCreateGame{
 		Creator: alice,
 		Black:   bob,
 		Red:     carol,
 	})
-	ctx := sdk.UnwrapSDKContext(context)
 	require.NotNil(t, ctx)
 	events := sdk.StringifyEvents(ctx.EventManager().ABCIEvents())
 	require.Len(t, events, 1)
